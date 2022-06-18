@@ -1,7 +1,7 @@
 import { Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { CreateCarInput, NewBrandInput } from './dto/create.dto';
+import { CreateCarDTO, CreateBrandDTO } from './dto/create.dto';
 import { Brand } from './entities/brand.entity';
 import { Car } from './entities/car.entity';
 
@@ -22,7 +22,7 @@ export class CarsService {
         }
     }
 
-    public async createNewCar(car: CreateCarInput): Promise<Car> {
+    public async createNewCar(car: CreateCarDTO): Promise<Car> {
         try {
             const newCar = await this.carsRepository.create(car)
             if(!newCar) {
@@ -37,7 +37,7 @@ export class CarsService {
         }
     }
 
-    public async createNewBrand(brand: NewBrandInput): Promise<Brand> {
+    public async createNewBrand(brand: CreateBrandDTO): Promise<Brand> {
         try {
             const newBrand = await this.brandsRepository.create({
                 ...brand,

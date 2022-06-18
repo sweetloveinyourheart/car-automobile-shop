@@ -1,61 +1,55 @@
-import { Field, Float, InputType, Int } from "@nestjs/graphql";
+import { IsNotEmpty, IsNumber, IsString } from "class-validator"
 
-@InputType()
-export class BrandInput {
-    @Field(type => Int)
+class Brand {
+    @IsNumber()
     id: number
 }
 
-@InputType()
-export class VersionInput {
-    @Field()
+class Version {
+    @IsString()
     name: string
 }
 
-@InputType()
-export class CarImageInput {
-    @Field()
+class CarImage {
+    @IsString()
     image: string
 }
 
-@InputType()
-export class CarSpecificationsInput {
-    @Field(type => Float)
+class CarSpecifications {
+    @IsNumber()
     topSpeed: number
 
-    @Field(type => Float)
+    @IsNumber()
     maxPower: number
 }
 
-@InputType()
-export class CreateCarInput {
-    @Field()
+export class CreateCarDTO {
+    @IsString()
     name: string;
 
-    @Field(type => Float)
+    @IsNumber()
     price: number;
 
-    @Field(type => BrandInput)
-    brand: BrandInput
-  
-    @Field()
+    @IsNotEmpty()
+    brand: Brand
+
+    @IsString()
     model: string
 
-    @Field(type => Int)
+    @IsNumber()
     manufactureYear: number
 
-    @Field(type => CarSpecificationsInput)
-    specifications: CarSpecificationsInput
+    @IsNotEmpty()
+    specifications: CarSpecifications
 
-    @Field(type => [CarImageInput])
-    images: CarImageInput[]
+    @IsNotEmpty()
+    images: CarImage[]
 
-    @Field(type => VersionInput)
-    version: VersionInput
+    @IsNotEmpty()
+    version: Version
 }
 
-@InputType()
-export class NewBrandInput {
-    @Field()
+export class CreateBrandDTO {
+    @IsString()
     name: string
 }
