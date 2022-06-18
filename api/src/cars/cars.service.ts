@@ -22,9 +22,28 @@ export class CarsService {
         }
     }
 
-    public async createNewCar(car: CreateCarDTO): Promise<Car> {
+    public async getBrands(): Promise<Brand[]> {
         try {
-            const newCar = await this.carsRepository.create(car)
+            const result = await this.brandsRepository.find()
+        
+            return result
+        } catch (error) {
+            throw new InternalServerErrorException()
+        }
+    }
+
+    public async createNewCar(car: CreateCarDTO, images: Express.Multer.File[]): Promise<Car> {
+        try {
+            const imagesLink = images.map((image) => {
+                return {
+                    image: image.filename
+                }
+            })
+
+            const newCar = await this.carsRepository.create({
+                ...car,
+                images: imagesLink
+            })
             if(!newCar) {
                 throw new NotFoundException()
             }
@@ -37,11 +56,11 @@ export class CarsService {
         }
     }
 
-    public async createNewBrand(brand: CreateBrandDTO): Promise<Brand> {
+    public async createNewBrand(brand: CreateBrandDTO, image: Express.Multer.File): Promise<Brand> {
         try {
             const newBrand = await this.brandsRepository.create({
                 ...brand,
-                logo: "link"
+                logo: image.filename
             })
             if(!newBrand) {
                 throw new NotFoundException()

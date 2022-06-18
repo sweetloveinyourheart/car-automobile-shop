@@ -10,11 +10,6 @@ class Version {
     name: string
 }
 
-class CarImage {
-    @IsString()
-    image: string
-}
-
 class CarSpecifications {
     @IsNumber()
     topSpeed: number
@@ -41,9 +36,6 @@ export class CreateCarDTO {
 
     @IsNotEmpty()
     specifications: CarSpecifications
-
-    @IsNotEmpty()
-    images: CarImage[]
 
     @IsNotEmpty()
     version: Version

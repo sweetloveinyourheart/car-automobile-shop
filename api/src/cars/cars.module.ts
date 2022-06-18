@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { HttpException, HttpStatus, Module } from '@nestjs/common';
 import { CarsService } from './cars.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Car } from './entities/car.entity';
@@ -15,4 +15,4 @@ import { CarsController } from './cars.controller';
   providers: [CarsService],
   controllers: [CarsController]
 })
-export class CarsModule {}
+export class CarsModule { }
